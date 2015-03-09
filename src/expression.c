@@ -3579,18 +3579,22 @@ bool ThisExp::isBool(bool result)
 
 bool ThisExp::isLvalue()
 {
-    // Class `this` is an rvalue; struct `this` is an lvalue.
-    return (type->toBasetype()->ty != Tclass);
+    return 1;
 }
 
 Expression *ThisExp::toLvalue(Scope *sc, Expression *e)
 {
+    return this;
+}
+
+Expression *ThisExp::modifiableLvalue(Scope *sc, Expression *e)
+{
     if (type->toBasetype()->ty == Tclass)
     {
-        // Class `this` is an rvalue; struct `this` is an lvalue.
-        return Expression::toLvalue(sc, e);
+        error("cannot modify '%s' reference", toChars());
+        return toLvalue(sc, e);
     }
-    return this;
+    return Expression::modifiableLvalue(sc, e);
 }
 
 /******************************** SuperExp **************************/
