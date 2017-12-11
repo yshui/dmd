@@ -97,7 +97,7 @@ MMD=-MMD -MF $(basename $@).deps
 
 # Default compiler flags for all source files
 CFLAGS := $(WARNINGS) \
-	-fno-exceptions -fno-rtti \
+	-fno-exceptions -fno-rtti -fpermissive -Wno-narrowing -g \
 	-D__pascal= -DMARS=1 -DTARGET_$(OS_UPCASE)=1 -DDM_TARGET_CPU_$(TARGET_CPU)=1 -DDMDV2=1 \
 
 ifneq (,$(DEBUG))
@@ -113,7 +113,7 @@ CFLAGS  += -pg -fprofile-arcs -ftest-coverage
 LDFLAGS += -pg -fprofile-arcs -ftest-coverage
 endif
 else
-CFLAGS += -O2
+CFLAGS += -Os #-Og -fschedule-insns2 -fpeephole2 -fgcse
 endif
 
 # Uniqe extra flags if necessary

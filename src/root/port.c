@@ -582,7 +582,7 @@ longdouble Port::strtold(const char *p, char **endp)
 #if __linux__ || __APPLE__ || __FreeBSD__ || __OpenBSD__
 
 #include <math.h>
-#if __linux__
+#if __GLIBC__
 #include <bits/nan.h>
 #include <bits/mathdef.h>
 #endif
@@ -672,9 +672,11 @@ int Port::isNan(double r)
 #endif
 #elif __FreeBSD__ || __OpenBSD__
     return isnan(r);
-#else
+#elif __GLIBC__
     #undef isnan
     return ::isnan(r);
+#else
+    return isnan(r);
 #endif
 }
 
@@ -688,9 +690,11 @@ int Port::isNan(longdouble r)
 #endif
 #elif __FreeBSD__ || __OpenBSD__
     return isnan(r);
-#else
+#elif __GLIBC__
     #undef isnan
     return ::isnan(r);
+#else
+    return isnan(r);
 #endif
 }
 
@@ -716,9 +720,11 @@ int Port::isInfinity(double r)
     return fpclassify(r) == FP_INFINITE;
 #elif __FreeBSD__ || __OpenBSD__
     return isinf(r);
-#else
+#elif __GLIBC__
     #undef isinf
     return ::isinf(r);
+#else
+    return isinf(r);
 #endif
 }
 

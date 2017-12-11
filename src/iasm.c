@@ -23,7 +23,7 @@
 #if __DMC__
 #include        <limits.h>
 #endif
-
+#include	<setjmp.h>
 
 // D compiler
 #include        "mars.h"

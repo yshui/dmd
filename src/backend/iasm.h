@@ -11,8 +11,6 @@
  * For any other uses, please contact Digital Mars.
  */
 
-#include <setjmp.h>
-
 /////////////////////////////////////////////////
 // Instruction flags (usFlags)
 //
