@@ -188,7 +188,7 @@ MMD=-MMD -MF $(basename $@).deps
 
 # Default compiler flags for all source files
 CXXFLAGS := $(WARNINGS) \
-	-fno-exceptions -fno-rtti \
+	-fno-exceptions -fno-rtti -fPIC \
 	-D__pascal= -DMARS=1 -DTARGET_$(OS_UPCASE)=1 -DDM_TARGET_CPU_$(TARGET_CPU)=1 \
 	$(MODEL_FLAG)
 # GCC Specific
@@ -197,7 +197,7 @@ CXXFLAGS += \
     -std=gnu++98
 endif
 # Default D compiler flags for all source files
-DFLAGS= -version=MARS
+DFLAGS= -version=MARS -defaultlib=libdruntime-linux64.a -fPIC
 # Enable D warnings
 DFLAGS += -wi
 
