@@ -261,7 +261,10 @@ void chkunass(elem *);
 void chknoabstract(type *);
 targ_llong msc_getnum();
 targ_size_t alignmember(type *,targ_size_t,targ_size_t);
-extern "C" { targ_size_t _align(targ_size_t,targ_size_t); }
+extern "C" {
+    targ_size_t _align(targ_size_t,targ_size_t);
+    targ_size_t _alignof(targ_size_t);
+}
 
 /* nteh.c */
 unsigned char *nteh_context_string();

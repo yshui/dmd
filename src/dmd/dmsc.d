@@ -168,6 +168,26 @@ extern (C) targ_size_t _align(targ_size_t size, targ_size_t offset)
     return offset;
 }
 
+/***********************************
+ * Return alignment requirement if it is of size 'size'.
+ */
+
+extern (C) targ_size_t _alignof(targ_size_t size)
+{
+    switch (size)
+    {
+        case 1:
+        case 2:
+        case 4:
+        case 8:
+            return size;
+        default:
+            if (size >= 16)
+                return 16;
+            return _tysize[TYnptr];
+    }
+}
+
 
 /*******************************
  * Get size of ty

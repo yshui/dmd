@@ -2316,13 +2316,12 @@ int Obj::data_start(Symbol *sdata, targ_size_t datasize, int seg)
     else
         seg = sdata->Sseg;
     targ_size_t offset = Offset(seg);
-    if (sdata->Salignment > 0)
-    {   if (SegData[seg]->SDalignment < sdata->Salignment)
-            SegData[seg]->SDalignment = sdata->Salignment;
-        alignbytes = ((offset + sdata->Salignment - 1) & ~(sdata->Salignment - 1)) - offset;
-    }
-    else
-        alignbytes = _align(datasize, offset) - offset;
+    int alignment = sdata->Salignment;
+    if (alignment <= 0)
+        alignment = _alignof(datasize);
+    if (SegData[seg]->SDalignment < alignment)
+            SegData[seg]->SDalignment = alignment;
+    alignbytes = ((offset + alignment - 1) & ~(alignment - 1)) - offset;
     if (alignbytes)
         Obj::lidata(seg, offset, alignbytes);
     sdata->Soffset = offset + alignbytes;
